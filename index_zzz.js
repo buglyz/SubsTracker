@@ -8578,9 +8578,9 @@ async function checkExpiringSubscriptions(env) {
       // 修复：对于分钟级和小时级订阅，使用精确的时间差判断是否过期
       let isExpiredForNotification = false;
       if (subscription.periodUnit === 'minute' || subscription.periodUnit === 'hour') {
-        isExpiredForNotification = diffMs < 0;
+        isExpiredForNotification =  diffMinutes < 0 && diffMinutes >= -1;
       } else {
-        isExpiredForNotification = daysDiff < 0;
+        isExpiredForNotification = daysDiff < 0 && daysDiff >= -1;
       }
 
       if (isExpiredForNotification && subscription.autoRenew === false) {
